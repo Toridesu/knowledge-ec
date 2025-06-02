@@ -1,3 +1,5 @@
+![プロジェクトのスクリーンショット](https://github.com/user-attachments/assets/8b0680a6-1713-4e59-bb48-78cd71d901b7)
+
 # コンテンツ販売アプリ
 
 このプロジェクトは、Next.js、Supabase、Stripe、Auth.jsを活用した E コマースプラットフォームの学習用プロジェクトです。
