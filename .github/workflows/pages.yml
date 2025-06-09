@@ -1,0 +1,57 @@
+# GitHub Pages へデプロイするためのシンプルなワークフロー
+name: Deploy Next.js site to Pages
+
+on:
+  # `main` ブランチに変更がプッシュされたときに実行されます
+  push:
+    branches: ["main"]
+
+  # Actions タブから手動でワークフローを実行できるようにします
+  workflow_dispatch:
+
+# GITHUB_TOKEN の権限を設定し、GitHub Pages へのデプロイを許可します
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 複数のジョブをシーケンシャルに実行することを許可します
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # ビルドジョブ
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Install dependencies
+        run: npm install
+      - name: Build with Next.js
+        run: next build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # out ディレクトリをアップロードします
+          path: "./out"
+
+  # デプロイジョブ
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
