@@ -1,4 +1,4 @@
-![プロジェクトのスクリーンショット](https://github.com/user-attachments/assets/8b0680a6-1713-4e59-bb48-78cd71d901b7)
+![プロジェクトのスクリーンショット](https://github.com/user-attachments/assets/4caa3b64-65e8-410f-81eb-3af4b899678b)
 
 # コンテンツ販売アプリ
 
